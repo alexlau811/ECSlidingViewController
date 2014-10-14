@@ -8,6 +8,8 @@
 
 #import "ECSlidingViewController.h"
 
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+
 NSString *const ECSlidingViewUnderRightWillAppear    = @"ECSlidingViewUnderRightWillAppear";
 NSString *const ECSlidingViewUnderLeftWillAppear     = @"ECSlidingViewUnderLeftWillAppear";
 NSString *const ECSlidingViewUnderLeftWillDisappear  = @"ECSlidingViewUnderLeftWillDisappear";
@@ -575,7 +577,7 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
 
     CGRect bounds = [UIScreen mainScreen].bounds;
 
-    if (UIInterfaceOrientationIsLandscape(sharedApplication.statusBarOrientation)) {
+    if (SYSTEM_VERSION_LESS_THAN(@"8") && UIInterfaceOrientationIsLandscape(sharedApplication.statusBarOrientation)) {
         CGFloat height = CGRectGetWidth(bounds);
         CGFloat width  = CGRectGetHeight(bounds);
         bounds.size.height = height;
